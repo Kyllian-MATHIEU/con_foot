@@ -1,0 +1,22 @@
+{
+  "name": "vendor_name/con_foot",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "kmathieu",
+      "email": "email@example.com"
+    }
+  ],
+  "require": {
+    "phpunit/phpunit": "*"
+  },
+
+
+  "autoload": {
+  "psr-4": {
+    "App\\": "src"
+  }
+  }
+}
