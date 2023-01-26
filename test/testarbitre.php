@@ -1,34 +1,15 @@
 <?php
+use App\class\Arbitre;
+use PHPUnit\Framework\TestCase;
 
-use App\class\Stade;
-use PHPUnit\Framework\TestCase; // On importe la classe TestCase de PHPUnit
-
-
-class TestStade extends TestCase // On crée une classe qui hérite de TestCase
+class TestArbitre extends TestCase
 {
-    public function testDonneTexte(): void
-        // On crée une méthode qui teste la méthode donneTexte()
-    {
-        $PalaisDesSport = new Stade("PalaisDesSport"); // On crée un objet Stade
-        // On teste la méthode donneTexte() de l'objet Stade
-        // Faire une assertion = affirmer que quelque chose est vrai
-        $this->assertEquals("PalaisDesSport", $PalaisDesSport->donneTexte());
-    }
-
-
-    public function testnom_stade(): void
-    {
-        $PalaisDesSport = new Stade("PalaisDesSport");
-        $this->assertEquals("PalaisDesSport", $PalaisDesSport->getNom());
-    }
-
-
     public function testAll(): void
     {
-        $PalaisDesSport = new Stade("PalaisDesSport");
-        $PalaisDesSport->setNom("PalaisDesSport2");
-        $this->assertEquals("PalaisDesSport2", $PalaisDesSport->getNom());
+        $unArbitre = new Arbitre ("Pitana","Nestor", new DateTime("1975-06-17"), "Argentin");
+        $this->assertEquals("Argentin", $unArbitre->getPays());
+        $unArbitre->setPays("Brésilien");
+        $this->assertEquals("Brésilien", $unArbitre->getPays());
+        $this->assertEquals("Arbitre : Pitana Nestor nationalité : Brésilien", $unArbitre->donneTexte());
     }
 }
-
-

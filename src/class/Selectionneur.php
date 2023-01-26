@@ -2,61 +2,37 @@
 namespace App\class;
 
 use DateTime;
-
-class Selectionneur
+use App\class\Equipe;
+class Selectionneur extends Humain
 {
-
-
-    //Constructeur => Sert à créer l’objet
-    public function __construct(string $nom, string $prenom, DateTime $dateNaissance)
+    private Equipe $entraine;
+    public function __construct(string $nom, string $prenom, DateTime $dateNaissance, Equipe $entraine)
     {
-        //On initialise les propriétés
-        //$this signifie “cette instance”, donc l'objet en cours
-        $this->nom = $nom; //$this->nom est la propriété nom de l'objet en cours
-        //$nom est le paramètre de la fonction
-        $this->prenom = $prenom;
-        $this->dateNaissance = $dateNaissance;
+        $this->entraine = $entraine;
+
+        // on dit à l'équipe qu'elle est entraînée par ce sélectionneur
+        $entraine->setEstEntrainee($this);
+
+        parent::__construct($nom, $prenom, $dateNaissance);
     }
 
-    //Liste des méthodes
-    // Comment modifier des propriétés privées ?
-    // => On crée des méthodes qui s'appelle des accesseurs (getters) et des mutateurs (setters)
-    // Les assesseurs permettent de lire les propriétés privées
-
-    public function getNom(): string
+    public function getEntraine(): Equipe
     {
-        return $this->nom;
+        return $this->entraine;
     }
 
-    public function getPrenom(): string
+    public function setEntraine(Equipe $entraine): void
     {
-        return $this->prenom;
+        $this->entraine = $entraine;
+        //il y a aussi un risque d'incohérence !!!
+        if($entraine->getEstEntrainee() != $this)
+        {
+            $entraine->setEstEntrainee($this);
+        }
     }
 
-    public function getDateNaissance(): DateTime
-    {
-        return $this->dateNaissance;
-    }
-
-    //Les mutateurs permettent de modifier les propriétés privées
-    public function setNom(string $nom): void
-    {
-        $this->nom = $nom;
-    }
-
-    public function setPrenom(string $prenom): void
-    {
-        $this->prenom = $prenom;
-    }
-
-    public function setDateNaissance(DateTime $dateNaissance): void
-    {
-        $this->dateNaissance = $dateNaissance;
-    }
-
-    // => On peut aussi créer des méthodes qui ne modifient pas les propriétés mais qui les utilisent
     public function donneTexte(): string
     {
-        return "Selectionneur " . $this->nom . " " . $this->prenom . " date de naissance " . $this->dateNaissance->format('d/m/Y');
+        return "Sélectionneur : ".$this->getNom()." ".$this->getPrenom();
     }
 }

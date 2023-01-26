@@ -16,7 +16,7 @@ class Humain
         //On initialise les propriétés
         //$this signifie “cette instance”, donc l'objet en cours
         $this->nom = $nom; //$this->nom est la propriété nom de l'objet en cours
-        //$nom est le paramètre de la fonction
+                           //$nom est le paramètre de la fonction
         $this->prenom = $prenom;
         $this->dateNaissance = $dateNaissance;
     }
