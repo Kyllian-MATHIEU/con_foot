@@ -1,108 +1,50 @@
 <?php
-
-
 namespace App\class;
-use App\Class\Joueur;
-use App\Class\Evenement;
-use DateTime;
 
-
-
-
-class Faute
+class Faute extends FaitDeJeu
 {
-    private bool $CartonJaune;
-    private bool $CartonRouge;
-    private string $Description;
+    private bool $cartonJaune;
+    private bool $cartonRouge;
+    private ?Joueur $victime;
+    //Pas description car héritée de FaitDeJeu
 
-    private Joueur $victime;
-    private Joueur $auteur;
-
-    public function __construct(bool $CartonJaune, Bool $CartonRouge, string $Description, \DateTime $temps, string $auteur, String $victime)
+    public function __construct(\DateTime $temps, Joueur $auteur, string $description, bool $cartonJaune, bool $cartonRouge, ?Joueur $victime = null)
     {
-        $this-> CartonJaune = $CartonJaune;
-        $this-> CartonRouge = $CartonRouge;
-        $this-> Description = $Description;
-
-        Parent::__Construct($temps);
-        $this->temps = $temps;
-
-        $this-> Auteur = $auteur ;
-        $this-> Victime = $victime;
-
+        parent::__construct($temps, $auteur, $description);
+        $this->cartonJaune = $cartonJaune;
+        $this->cartonRouge = $cartonRouge;
+        $this->victime = $victime;
     }
 
-    /** GET X-X-X-X-X */
-
-    public function getTemps(): DateTime
+    public function estJaune(): bool
     {
-        return $this->temps;
+        return $this->cartonJaune;
     }
 
-    public function getAuteur(): string
+    public function estRouge(): bool
     {
-        return $this->Auteur;
+        return $this->cartonRouge;
     }
 
-    public function getDescription(): string
+    public function getVictime(): ?Joueur
     {
-        return $this->Description;
+        return $this->victime;
     }
-
-    public function getVictime(): string
-    {
-        return $this->Victime;
-    }
-
-    public function isCartonJaune(): bool
-    {
-        return $this->CartonJaune;
-    }
-
-    public function isCartonRouge(): bool
-    {
-        return $this->CartonRouge;
-    }
-
-/** SET X-X-X-X-X */
-
-    public function setTemps(DateTime $temps): void
-    {
-        $this->temps = $temps;
-    }
-
-    public function setAuteur(string $Auteur): void
-    {
-        $this->Auteur = $Auteur;
-    }
-
-    public function setCartonJaune(bool $CartonJaune): void
-    {
-        $this->CartonJaune = $CartonJaune;
-    }
-
-    public function setCartonRouge(bool $CartonRouge): void
-    {
-        $this->CartonRouge = $CartonRouge;
-    }
-
-    public function setDescription(string $Description): void
-    {
-        $this->Description = $Description;
-    }
-
-    public function setVictime(string $Victime): void
-    {
-        $this->Victime = $Victime;
-    }
-
-    /** DonneText  */
 
     public function donneTexte(): string
     {
-        return "Le fautif est " . $this->auteur . " La victime est " . $this->victime . " moment de la faute : " . $this->temps->format('H:I:S')."La fautes est". $this->Description;
+        $texte = "Faute : ".$this->getTemps()->format("H:i:s")." : " .$this->getAuteur()->getNom() ." ".$this->getAuteur()->getPrenom()." ".$this->getDescription();
+        if ($this->estJaune()) {
+            $texte .= " Carton jaune";
+        }
+        if ($this->estRouge()) {
+            $texte .= " Carton rouge";
+        }
+        if ($this->getVictime() != null) {
+            $texte .= " Victime : " . $this->getVictime()->getNom() . " " . $this->getVictime()->getPrenom();
+        }
+        return $texte."\n";
     }
-
 
 
 }

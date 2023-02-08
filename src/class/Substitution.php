@@ -1,29 +1,33 @@
 <?php
 
-
 namespace App\class;
-use DateTime;
-use App\Class\Evenement;
-use App\Class\Joueur;
 
-class Substitution
+class Substitution extends Evenement
 {
-private Joueur $Entrant;
-private Joueur $Sortant;
-    public function __construct(DateTime $temps, string $Entrant, string $Sortant)
+    private Joueur $sortant;
+    private Joueur $entrant;
+
+    public function __construct(\DateTime $temps, Joueur $sortant, Joueur $entrant)
     {
-        $this->Entrant= $Entrant;
-        $this->Sortant= $Sortant;
-
         parent::__construct($temps);
-
-
-
+        $this->sortant = $sortant;
+        $this->entrant = $entrant;
     }
 
+    public function getSortant(): Joueur
+    {
+        return $this->sortant;
+    }
+
+    public function getEntrant(): Joueur
+    {
+        return $this->entrant;
+    }
 
     public function donneTexte(): string
     {
-        return "Substitution " . $this->Entrant . " " ."-". $this->Sortant . " a partir de " . $this->temps->format('H:i:s');
+        return "Substitution ".$this->getTemps()->format("H:i:s")." : " . $this->sortant->getNom() . " " . $this->sortant->getPrenom() . " sort, " . $this->entrant->getNom() . " " . $this->entrant->getPrenom() . " entre\n";
     }
+
+
 }

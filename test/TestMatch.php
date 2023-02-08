@@ -8,7 +8,7 @@ class TestMatch extends TestCase // On crée une classe qui hérite de TestCase
 {
     public function testAll(): void
     {
-        $match = new Match("France", "Allemagne", new DateTime("2021-06-17"), "Stade de France", "Pitana");
+        $match = new \App\class\MatchFoot("France", "Allemagne", new DateTime("2021-06-17"), "Stade de France", "Pitana");
         $this->assertEquals("France", $match->getEquipe1());
         $this->assertEquals("Allemagne", $match->getEquipe2());
         $this->assertEquals("2021-06-17", $match->getDateMatch()->format("Y-m-d"));

@@ -1,6 +1,12 @@
 <?php
 
-class Match
+namespace App\class;
+use App\class\FaitDeJeu;
+use App\class\Equipe;
+use App\class\but;
+
+
+class MatchFoot
 {
     private string $equipe1;
     private string $equipe2;
